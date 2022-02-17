@@ -1,4 +1,15 @@
-.container-fluid {
+:root {
+    --blue: #3282F7;
+    --green: #68D9A4;
+    --red: #ED6454;
+    --light-grey: #E7E7E7;
+}
+
+body {
+    margin: 0 10% 0 10%;
+}
+
+.align-center {
     text-align: center;
 }
 
@@ -7,16 +18,19 @@
     margin: 15px 0 15px 0;
 }
 
+.container-fluid {
+    padding: 15px 0;
+}
+
 .form-control-lg {
     display: block;
     border: none;
-    background-color: #E7E7E7;
+    background-color: var(--light-grey);
 }
 
 .for-group {
     position: relative;
-    background-color: #E7E7E7;
-    margin: 0 10% 0 10%;
+    background-color: var(--light-grey);
     border-radius: 5px;
 }
 
@@ -24,4 +38,22 @@
     position: absolute;
     right: 2%;
     top: 15px;
+}
+
+.btn {
+    margin: 0 15px 0 0;
+    padding: 15px;
+    color: white;
+}
+
+.ingredients {
+    background-color: var(--blue);
+}
+
+.devices {
+    background-color: var(--green);
+}
+
+.ustensils {
+    background-color: var(--red);
 }
