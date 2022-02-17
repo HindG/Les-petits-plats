@@ -1,0 +1,27 @@
+.container-fluid {
+    text-align: center;
+}
+
+.logo {
+    width: 170px;
+    margin: 15px 0 15px 0;
+}
+
+.form-control-lg {
+    display: block;
+    border: none;
+    background-color: #E7E7E7;
+}
+
+.for-group {
+    position: relative;
+    background-color: #E7E7E7;
+    margin: 0 10% 0 10%;
+    border-radius: 5px;
+}
+
+.fa-magnifying-glass {  
+    position: absolute;
+    right: 2%;
+    top: 15px;
+}
