@@ -9,6 +9,20 @@ body {
     margin: 0 10% 0 10%;
 }
 
+h3 {
+    font-size: 18px;
+    font-weight:400;
+    margin:0;
+}
+
+.lato {
+    font-family: "Lato";
+}
+
+.roboto {
+    font-family: "Roboto";
+}
+
 .align-center {
     text-align: center;
 }
@@ -20,7 +34,7 @@ body {
 
 .container-fluid {
     padding: 15px 0;
-}
+} 
 
 .form-control-lg {
     display: block;
@@ -46,6 +60,18 @@ body {
     color: white;
 }
 
+.fa-circle-xmark, .fa-chevron-down, .fa-clock {
+    margin: 0 10px;
+}
+
+.tags-container {
+    padding: 20px 0 0 0;
+}
+
+.tags {
+    padding: 5px 12px;
+}
+
 .ingredients {
     background-color: var(--blue);
 }
@@ -56,4 +82,48 @@ body {
 
 .ustensils {
     background-color: var(--red);
+}
+
+.recipe-card {
+    max-width: 380px;
+    background-color: var(--light-grey);
+}
+
+.img-card {
+    background-color: #C7BEBE;
+    height: 178px;
+}
+
+.d-flex {
+    align-items: center;
+}
+
+.padded-container {
+    padding: 0 20px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+.timer-card {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.ingredients-container {
+    margin-block-end: 1rem;
+}
+
+.ingredient-name {
+    font-size: 12px;
+    font-weight: 700;   
+}
+
+.ingredient-quantity {
+    font-weight: 400;
+}
+
+.recipe-description {
+    font-size: 12px;
+    font-weight: 400;
+    max-width: 45%;
 }
