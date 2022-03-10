@@ -27,10 +27,15 @@
         <button class="btn ingredients lato tags">Coco<i class="fa-regular fa-circle-xmark"></i></button>
     </div>
 
-    <div class="d-flex container-fluid">
-        <button class="btn ingredients lato">Ingrédients<i class="fa-solid fa-chevron-down"></i></button>
-        <button class="btn devices lato">Appareils<i class="fa-solid fa-chevron-down"></i></button>
-        <button class="btn ustensils lato">Ustensiles<i class="fa-solid fa-chevron-down"></i></button>
+    <div class="d-flex container-fluid" id="tags-container">
+        <button class="btn ingredients lato" id="ingredients">Ingrédients<i class="fa-solid fa-chevron-down" id="ingredients-chevron-down"></i></button>
+        <div class="ingredients-list-container ingredients lato btn" id="ingredients-list-container">
+            <input class="form-control-lg lato" id="input-ingredients" type="text" placeholder="Rechercher un ingrédient">
+            <i class="fa-solid fa-chevron-up" id="ingredients-chevron-up"></i>
+            <div class="ingredients-list" id="ingredients-list"></div>
+        </div>
+        <button class="btn devices lato" id="devices">Appareils<i class="fa-solid fa-chevron-down" id="devices-chevron"></i></button>
+        <button class="btn ustensils lato" id="ustensils">Ustensiles<i class="fa-solid fa-chevron-down" id="ustensils-chevron"></i></button>
     </div>
 
     <div class="container-fluid" id="container">

@@ -13,9 +13,6 @@ h3 {
     font-size: 18px;
     font-weight: 400;
     margin: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
     max-width: 60%;
 }
 
@@ -39,6 +36,50 @@ h3 {
 .container-fluid {
     padding: 15px 0;
 } 
+
+#tags-container {
+    align-items: flex-start;
+}
+
+.title-container {
+    height: 60px;
+}
+
+.ingredients-list-container {
+    display: none;
+    width: 600px;
+    height: 600px;
+    position: relative;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    height: 90%;
+    padding: 22px;
+    overflow-y: scroll;
+}
+
+#input-ingredients {
+    background-color: var(--blue);
+    width: 100%;
+    color: #FFFFFF;
+}
+
+.fa-chevron-up {
+    position: absolute;
+    right: 5%;
+    top: 30px;
+}
+
+.list-element {
+    color: #FFFFFF;
+    width: 33%;
+    text-align: left;
+    white-space: break-spaces;
+}
 
 .form-control-lg {
     display: block;
