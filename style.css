@@ -39,6 +39,7 @@ h3 {
 
 #tags-container {
     align-items: flex-start;
+    position: relative;
 }
 
 .title-container {
@@ -48,8 +49,7 @@ h3 {
 .ingredients-list-container {
     display: none;
     width: 600px;
-    height: 600px;
-    position: relative;
+    position: absolute;
 }
 
 .ingredients-list {
@@ -59,7 +59,6 @@ h3 {
     flex-wrap: wrap;
     height: 90%;
     padding: 22px;
-    overflow-y: scroll;
 }
 
 #input-ingredients {

@@ -1,8 +1,10 @@
 // Déclaration des variables
+const recipesContainer = document.getElementById('container');
 const ingredientsTab = getIngredients(recipes);
 let ingredientsTabFiltered = [...ingredientsTab]; // clone d'un tableau avec le "spread operator"
 const ingredientsBtn = document.getElementById('ingredients');
 const devicesBtn = document.getElementById('devices');
+const ustensilsBtn = document.getElementById('ustensils');
 const ingredientsListContainer = document.getElementById('ingredients-list-container');
 const ingredientsChevronDown = document.getElementById('ingredients-chevron-down');
 const ingredientsChevronUp = document.getElementById('ingredients-chevron-up');
@@ -11,16 +13,19 @@ const tagContainer = document.getElementById('tags-container');
 let ingredientsInput = document.getElementById('input-ingredients');
 
 // Ecouter les évènements 
-ingredientsChevronDown.addEventListener('click', displayIngredients(ingredientsTab));
+// TODO dans un commit à part renommer ingredientsTab clic droit renommer le symb
+ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, ingredientsTab));
 ingredientsChevronUp.addEventListener('click', hideIngredients);
-ingredientsInput.addEventListener('change', () => {
-    let newIngredients = filterIngredients(ingredientsTab, ingredientsInput.value.toLowerCase())
-    displayIngredients(newIngredients)
+ingredientsInput.addEventListener('keyup', () => {
+    let newIngredients = filterIngredients(ingredientsTab, ingredientsInput.value.toLowerCase());
+    displayIngredients(newIngredients);
 })
 
-// Afficher les recettes
-function getRecipe() {
-    const container = document.getElementById('container');
+/**
+ * Afficher les recettes
+ * @param {array} recipes Tableau de recettes
+ */
+function displayRecipes(recipes) {
     for (let i = 0; i < recipes.length; i++) {
         const article = document.createElement('article');
         article.classList.add('recipe-card');
@@ -76,13 +81,15 @@ function getRecipe() {
         description.classList.add('recipe-description','roboto');
         description.innerText = recipes[i].description;
         divRecipe.appendChild(description);
-        container.appendChild(article);
+        recipesContainer.appendChild(article);
     }
 }
 
-getRecipe();
-
-// Algorithme qui récupère tous les ingrédients
+/**
+ * Algorithme qui récupère tous les ingrédients
+ * @param {array} recipes Tableau de recettes
+ * @returns 
+ */
 function getIngredients(recipes) {
     let tab = [];
     for (let i = 0; i < recipes.length; i++) {
@@ -106,11 +113,20 @@ function displayIngredients(ingredients) {
     // 2 -> remplir la liste
     ingredientsBtn.style.display = "none";
     ingredientsListContainer.style.display = "block";
-    ingredients.forEach((element) => {
+    devicesBtn.style.position = "inherit";
+    devicesBtn.style.left = "620px";
+    ustensilsBtn.style.position = "inherit";
+    ustensilsBtn.style.left = "620px";
+    ingredients.forEach((ingredient) => {
         const spanIngredient = document.createElement('span');
         spanIngredient.classList.add('list-element','lato');
-        spanIngredient.innerText = element[0].toUpperCase() + element.slice(1);
-        spanIngredient.addEventListener('click', filterRecipes);
+        spanIngredient.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
+        spanIngredient.addEventListener('click', () => {
+            // TODO: afficher l'ingredient dans un block au dessus de la recherche
+            // TODO: filtrer la liste des recettes
+            let newRecipes = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase());
+            displayRecipes(newRecipes);
+        });
         ingredientsList.appendChild(spanIngredient);
     })  
 }
@@ -121,6 +137,7 @@ function displayIngredients(ingredients) {
  * @param {string} searchInput la valeur à rechercher dans les ingrédients
  * @returns {array} un nouveau tableau d'ingrédient filtré
  */
+// TODO ajouter à partir 3ème caractère
 function filterIngredients(fullIngredientsTab, searchInput) {
     let newIngredientsTab = [];
     for (const ingredient of fullIngredientsTab) {
@@ -130,14 +147,57 @@ function filterIngredients(fullIngredientsTab, searchInput) {
     }
     return newIngredientsTab;
 }
-// test 1 : filterIngredients(['lait de coco', 'coca cola'], 'coco') -> ['lait de coco']
 
-function main() {
-        
+/**
+ * Filtre le tableau des recettes
+ * @param {array} recipes le tableau des recette
+ * @param {string} searchInput valeur de la recherche
+ * @returns {array} newRecipesTab - le nouveau tableau de recette filtré
+ */
+function filterRecipes(recipes, searchInput, type = "ingredients") {
+    console.log(recipes, searchInput);
+    let newRecipeTab = [];
+    for (let i = 0; i < recipes.length; i++) {
+
+        for (let j = 0; j < recipes[i].ingredients.length; j++) {
+            const element = recipes[i].ingredients[j].ingredient;
+
+            console.log(element);
+            
+            if (element.toLocaleLowerCase().indexOf(searchInput) > -1) {
+                newRecipeTab.push(recipes[i]);
+            }
+        }
+
+        /*if (type==='name') {
+
+            if (recipes[i].name.toLocaleLowerCase().indexOf(searchInput) > -1) {
+                newRecipeTab.push(recipes[i]);
+            }
+
+        } else if (type === 'ingredients') {
+
+        }  else if (type === 'ustensile') {
+            */
+
+    }
+    console.log(newRecipeTab);
+    return newRecipeTab;
 }
 
-// Replier liste ingrédients
+/**
+ * Replier liste ingrédients
+ */
 function hideIngredients() {
     ingredientsBtn.style.display = "block";
     ingredientsListContainer.style.display = "none";
+    devicesBtn.style.position = "initial";
+    ustensilsBtn.style.position = "initial";
 }
+
+function main() {
+    displayRecipes(recipes);
+    // initEventsListeners();
+}
+
+main();
