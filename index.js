@@ -1,7 +1,7 @@
 // Déclaration des variables
 const recipesContainer = document.getElementById('container');
-const ingredientsTab = getIngredients(recipes);
-let ingredientsTabFiltered = [...ingredientsTab]; // clone d'un tableau avec le "spread operator"
+const fullIngredientList = getIngredients(recipes);
+let filteredIngredientList = [...fullIngredientList]; // clone d'un tableau avec le "spread operator"
 const ingredientsBtn = document.getElementById('ingredients');
 const devicesBtn = document.getElementById('devices');
 const ustensilsBtn = document.getElementById('ustensils');
@@ -14,10 +14,10 @@ let ingredientsInput = document.getElementById('input-ingredients');
 
 // Ecouter les évènements 
 // TODO dans un commit à part renommer ingredientsTab clic droit renommer le symb
-ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, ingredientsTab));
+ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, fullIngredientList));
 ingredientsChevronUp.addEventListener('click', hideIngredients);
 ingredientsInput.addEventListener('keyup', () => {
-    let newIngredients = filterIngredients(ingredientsTab, ingredientsInput.value.toLowerCase());
+    let newIngredients = filterIngredients(fullIngredientList, ingredientsInput.value.toLowerCase());
     displayIngredients(newIngredients);
 })
 
