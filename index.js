@@ -12,15 +12,6 @@ const ingredientsList = document.getElementById('ingredients-list');
 const tagContainer = document.getElementById('tags-container');
 let ingredientsInput = document.getElementById('input-ingredients');
 
-// Ecouter les évènements 
-// TODO dans un commit à part renommer ingredientsTab clic droit renommer le symb
-ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, fullIngredientList));
-ingredientsChevronUp.addEventListener('click', hideIngredients);
-ingredientsInput.addEventListener('keyup', () => {
-    let newIngredients = filterIngredients(fullIngredientList, ingredientsInput.value.toLowerCase());
-    displayIngredients(newIngredients);
-})
-
 /**
  * Afficher les recettes
  * @param {array} recipes Tableau de recettes
@@ -137,7 +128,6 @@ function displayIngredients(ingredients) {
  * @param {string} searchInput la valeur à rechercher dans les ingrédients
  * @returns {array} un nouveau tableau d'ingrédient filtré
  */
-// TODO ajouter à partir 3ème caractère
 function filterIngredients(fullIngredientsTab, searchInput) {
     let newIngredientsTab = [];
     for (const ingredient of fullIngredientsTab) {
@@ -195,9 +185,23 @@ function hideIngredients() {
     ustensilsBtn.style.position = "initial";
 }
 
+/**
+ * Ecouter les événements 
+ */
+function initEventsListeners() {
+    ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, fullIngredientList));
+    ingredientsChevronUp.addEventListener('click', hideIngredients);
+    ingredientsInput.addEventListener('keyup', (event) => {
+        if (ingredientsInput.value.length > 2 || event.key === "Backspace") {
+            let newIngredients = filterIngredients(fullIngredientList, ingredientsInput.value.toLowerCase());
+            displayIngredients(newIngredients);
+        }
+    })
+}
+
 function main() {
     displayRecipes(recipes);
-    // initEventsListeners();
+    initEventsListeners();
 }
 
 main();
