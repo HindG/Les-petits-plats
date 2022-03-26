@@ -17,6 +17,9 @@ let ingredientsInput = document.getElementById('input-ingredients');
  * @param {array} recipes Tableau de recettes
  */
 function displayRecipes(recipes) {
+    
+    recipesContainer.innerHTML = "";
+
     for (let i = 0; i < recipes.length; i++) {
         const article = document.createElement('article');
         article.classList.add('recipe-card');
@@ -99,9 +102,9 @@ function getIngredients(recipes) {
  * @param {array} ingredients Tableau d'ingredient
  */
 function displayIngredients(ingredients) {
-    // 1 -> vider la liste
+
     ingredientsList.innerHTML = "";
-    // 2 -> remplir la liste
+
     ingredientsBtn.style.display = "none";
     ingredientsListContainer.style.display = "block";
     devicesBtn.style.position = "inherit";
@@ -113,10 +116,24 @@ function displayIngredients(ingredients) {
         spanIngredient.classList.add('list-element','lato');
         spanIngredient.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
         spanIngredient.addEventListener('click', () => {
-            // TODO: afficher l'ingredient dans un block au dessus de la recherche
-            // TODO: filtrer la liste des recettes
-            let newRecipes = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase());
-            displayRecipes(newRecipes);
+
+            closeIngredientModal();
+            tagContainer.innerHTML = "";
+            ingredientsInput.value = "";
+            const ingredientTag = document.createElement('button');
+            ingredientTag.classList.add('btn','ingredients','lato','tags');
+            ingredientTag.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
+            const closeIcon = document.createElement('i');
+            closeIcon.classList.add('fa-regular','fa-circle-xmark');
+            closeIcon.addEventListener('click', () => { 
+                ingredientTag.style.display = 'none';
+                displayRecipes(recipes);
+            })
+            ingredientTag.appendChild(closeIcon);
+            tagContainer.appendChild(ingredientTag);
+
+            let newRecipesIngredients = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase(), "ingredients");
+            displayRecipes(newRecipesIngredients);
         });
         ingredientsList.appendChild(spanIngredient);
     })  
@@ -145,14 +162,11 @@ function filterIngredients(fullIngredientsTab, searchInput) {
  * @returns {array} newRecipesTab - le nouveau tableau de recette filtré
  */
 function filterRecipes(recipes, searchInput, type = "ingredients") {
-    console.log(recipes, searchInput);
     let newRecipeTab = [];
     for (let i = 0; i < recipes.length; i++) {
 
         for (let j = 0; j < recipes[i].ingredients.length; j++) {
             const element = recipes[i].ingredients[j].ingredient;
-
-            console.log(element);
             
             if (element.toLocaleLowerCase().indexOf(searchInput) > -1) {
                 newRecipeTab.push(recipes[i]);
@@ -171,14 +185,13 @@ function filterRecipes(recipes, searchInput, type = "ingredients") {
             */
 
     }
-    console.log(newRecipeTab);
     return newRecipeTab;
 }
 
 /**
  * Replier liste ingrédients
  */
-function hideIngredients() {
+function closeIngredientModal() {
     ingredientsBtn.style.display = "block";
     ingredientsListContainer.style.display = "none";
     devicesBtn.style.position = "initial";
@@ -190,7 +203,7 @@ function hideIngredients() {
  */
 function initEventsListeners() {
     ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, fullIngredientList));
-    ingredientsChevronUp.addEventListener('click', hideIngredients);
+    ingredientsChevronUp.addEventListener('click', closeIngredientModal);
     ingredientsInput.addEventListener('keyup', (event) => {
         if (ingredientsInput.value.length > 2 || event.key === "Backspace") {
             let newIngredients = filterIngredients(fullIngredientList, ingredientsInput.value.toLowerCase());
@@ -205,3 +218,14 @@ function main() {
 }
 
 main();
+
+
+// Filtrer à la fois sur ustensils, ingredients et devices, merger les tableaux sans doublons
+// TODO: filtrer la liste des recettes
+// let newRecipesIngredients = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase(), "ingredients");
+// let newRecipesUstensiles = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase(), "ustensils");
+// let newRecipesTitle = filterRecipes(recipes, spanIngredient.innerText.toLocaleLowerCase(), "ustensile");
+// console.log(newRecipesIngredients);
+// let newRecipes = [...new Set([...newRecipesIngredients ,...newRecipesUstensiles, ...newRecipesTitle])]
+// console.log(newRecipes);
+// displayRecipes(newRecipes);
