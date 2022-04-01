@@ -67,6 +67,18 @@ h3 {
     color: #FFFFFF;
 }
 
+#input-ustensils {
+    background-color: var(--red);
+    width: 100%;
+    color: #FFFFFF;
+}
+
+#input-appliances {
+    background-color: var(--green);
+    width: 100%;
+    color: #FFFFFF;
+}
+
 .fa-chevron-up {
     position: absolute;
     right: 5%;
@@ -182,4 +194,74 @@ h3 {
     height: 164px;
     text-overflow: ellipsis;
     display: inline-block;
+}
+
+.unfold-ingredients {
+    left: 620px;
+}
+
+.unfold-ustensils {
+    left: 310px;
+}
+
+.main-unfold-appliances {
+    left: 160px;
+}
+
+.unfold-appliances {
+    left: 610px;
+}
+
+.main-unfold-ustensils {
+    left: 310px;
+}
+
+.other-unfold-appliances {
+    left: 610px;
+}
+
+#search::placeholder {
+    color: #808080;
+}
+
+input::placeholder {
+    color: #ffffff;
+    opacity: 1;
+}
+
+@media all and (max-width:1025px) and (min-width:770px) {
+    .list-container {
+        width: 480px;
+    }
+
+    .unfold-ingredients {
+        left: 492px;
+    }
+    
+    .unfold-appliances {
+        left: 490px;
+    }
+
+}
+
+@media all and (max-width:769px) and (min-width:427px) {
+    .list-container {
+        width: 460px;
+    }
+        
+    .other-unfold-ingredients {
+        left: 470px;
+    }
+    
+}
+
+@media all and (max-width:426px) {
+    #filters-container {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .recipe-card {
+        width: 47%;
+    }
 }

@@ -152,13 +152,15 @@ function getIngredients(recipes) {
 function displayIngredients(ingredients) {
 
     ingredientsList.innerHTML = "";
+    closeApplianceModal();
+    closeUstensilModal();
 
     ingredientsBtn.style.display = "none";
     ingredientsListContainer.style.display = "block";
     appliancesBtn.style.position = "inherit";
-    appliancesBtn.style.left = "620px";
     ustensilsBtn.style.position = "inherit";
-    ustensilsBtn.style.left = "620px";
+    appliancesBtn.classList.add('unfold-ingredients');
+    ustensilsBtn.classList.add('unfold-ingredients');
     ingredients.forEach((ingredient) => {
         const spanIngredient = document.createElement('span');
         spanIngredient.classList.add('list-element','lato');
@@ -194,13 +196,14 @@ function displayIngredients(ingredients) {
  function displayAppliances(appliances) {
 
     appliancesList.innerHTML = "";
+    closeIngredientModal();
+    closeUstensilModal();
 
     appliancesBtn.style.display = "none";
     appliancesListContainer.style.display = "block";
-    ingredientsBtn.style.position = "inherit";
-    ingredientsBtn.style.left = "620px";
+    appliancesListContainer.classList.add('main-unfold-appliances');
     ustensilsBtn.style.position = "inherit";
-    ustensilsBtn.style.left = "620px";
+    ustensilsBtn.classList.add('unfold-appliances');
     appliances.forEach((appliance) => {
         const spanAppliance = document.createElement('span');
         spanAppliance.classList.add('list-element','lato');
@@ -236,13 +239,13 @@ function displayIngredients(ingredients) {
  function displayUstensils(ustensils) {
 
     ustensilsList.innerHTML = "";
+    closeIngredientModal();
+    closeApplianceModal();
 
     ustensilsBtn.style.display = "none";
     ustensilsListContainer.style.display = "block";
-    appliancesBtn.style.position = "inherit";
-    appliancesBtn.style.left = "620px";
-    ustensilsBtn.style.position = "inherit";
-    ustensilsBtn.style.left = "620px";
+    ustensilsListContainer.classList.add('main-unfold-ustensils');
+
     ustensils.forEach((ustensil) => {
         const spanUstensil = document.createElement('span');
         spanUstensil.classList.add('list-element','lato');
@@ -367,9 +370,6 @@ function filterRecipes(recipes, searchInput, type) {
                 newRecipeTab.push(recipes[i]);
             }
 
-        } else if (type === 'ingredients') {
-
-        }  else if (type === 'ustensile') {
             */
 
     
