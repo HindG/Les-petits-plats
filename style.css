@@ -224,6 +224,14 @@ h3 {
     color: #808080;
 }
 
+#empty-state {
+    display: none;
+    color: var(--red);
+    font-size: 37px;
+    padding: 20px 50px;
+    text-align: center;
+}
+
 input::placeholder {
     color: #ffffff;
     opacity: 1;
