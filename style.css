@@ -237,7 +237,7 @@ input::placeholder {
     opacity: 1;
 }
 
-@media all and (max-width:1025px) and (min-width:770px) {
+@media screen and (max-width:1025px) and (min-width:770px) {
     .list-container {
         width: 480px;
     }
@@ -252,7 +252,7 @@ input::placeholder {
 
 }
 
-@media all and (max-width:769px) and (min-width:427px) {
+@media screen and (max-width:769px) and (min-width:427px) {
     .list-container {
         width: 460px;
     }
@@ -263,7 +263,7 @@ input::placeholder {
     
 }
 
-@media all and (max-width:426px) {
+@media screen and (max-width:426px) {
     #filters-container {
         align-items: center;
         flex-direction: column;
