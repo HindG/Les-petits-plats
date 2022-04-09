@@ -3,9 +3,6 @@ const recipesContainer = document.getElementById('container');
 const fullIngredientList = getIngredients(recipes);
 const fullApplianceList = getAppliances(recipes);
 const fullUstensilList = getUstensils(recipes);
-// let filteredIngredientList = [...fullIngredientList]; // clone d'un tableau avec le "spread operator"
-// let filteredAppliancesList = [...fullApplianceList]; 
-// let filteredUstensilsList = [...fullUstensilList]; 
 const ingredientsBtn = document.getElementById('ingredients');
 const appliancesBtn = document.getElementById('appliances');
 const ustensilsBtn = document.getElementById('ustensils');
@@ -29,6 +26,9 @@ let mainSearchInput = document.getElementById('search');
 const emptyState = document.getElementById('empty-state');
 let filterTab = [];
 let filteredRecipesTab = Object.assign([], recipes); 
+let filteredIngredientList = getIngredients(filteredRecipesTab);
+let filteredApplianceList = getAppliances(filteredRecipesTab);
+let filteredUstensilList = getUstensils(filteredRecipesTab);
 
 // function getFilters() {
 //     for (let i = 0; i < recipes.length; i++) {
@@ -187,17 +187,14 @@ function getIngredients(recipes) {
  * @param {array} ingredients Tableau d'ingredient
  */
 function displayIngredients(ingredients) {
-
+    
+    //TODO corriger affichage si 3 ouvertures de modales
     ingredientsList.innerHTML = "";
-    closeApplianceModal();
-    closeUstensilModal();
+    appliancesBtn.style.display = "block";
+    appliancesListContainer.style.display = "none";
+    ustensilsBtn.style.display = "block";
+    ustensilsListContainer.style.display = "none";
 
-    ingredientsBtn.style.display = "none";
-    ingredientsListContainer.style.display = "block";
-    appliancesBtn.style.position = "inherit";
-    ustensilsBtn.style.position = "inherit";
-    appliancesBtn.classList.add('unfold-ingredients');
-    ustensilsBtn.classList.add('unfold-ingredients');
     ingredients.forEach((ingredient) => {
         const spanIngredient = document.createElement('span');
         spanIngredient.classList.add('list-element','lato');
@@ -208,12 +205,18 @@ function displayIngredients(ingredients) {
             filterTab.push(ingredientObject);
 
             closeIngredientModal();
+            
+            displayIngredients(filteredIngredientList);
+            displayAppliances(filteredApplianceList);
+            displayUstensils(filteredUstensilList);
+
             ingredientsInput.value = "";
             const ingredientTag = document.createElement('button');
             ingredientTag.classList.add('btn','ingredients','lato','tags');
             ingredientTag.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
             const closeIcon = document.createElement('i');
             closeIcon.classList.add('fa-regular','fa-circle-xmark');
+            //TODO refiltrer liste des recettes quand on quitte le tag 
             closeIcon.addEventListener('click', () => { 
                 ingredientTag.style.display = 'none';
 
@@ -226,7 +229,7 @@ function displayIngredients(ingredients) {
             ingredientTag.appendChild(closeIcon);
             tagContainer.appendChild(ingredientTag);
 
-            let newRecipesIngredients = filterRecipes(spanIngredient.innerText.toLocaleLowerCase(), "ingredients");
+            let newRecipesIngredients = filterRecipes(ingredientObject);
             displayRecipes(newRecipesIngredients);
         });
         ingredientsList.appendChild(spanIngredient);
@@ -240,14 +243,11 @@ function displayIngredients(ingredients) {
  function displayAppliances(appliances) {
 
     appliancesList.innerHTML = "";
-    closeIngredientModal();
-    closeUstensilModal();
+    ingredientsBtn.style.display = "block";
+    ingredientsListContainer.style.display = "none";
+    ustensilsBtn.style.display = "block";
+    ustensilsListContainer.style.display = "none";
 
-    appliancesBtn.style.display = "none";
-    appliancesListContainer.style.display = "block";
-    appliancesListContainer.classList.add('main-unfold-appliances');
-    ustensilsBtn.style.position = "inherit";
-    ustensilsBtn.classList.add('unfold-appliances');
     appliances.forEach((appliance) => {
         const spanAppliance = document.createElement('span');
         spanAppliance.classList.add('list-element','lato');
@@ -256,6 +256,10 @@ function displayIngredients(ingredients) {
 
             let applianceObject = {appliance: spanAppliance.innerText.toLocaleLowerCase()};
             filterTab.push(applianceObject);
+
+            displayIngredients(filteredIngredientList);
+            displayAppliances(filteredApplianceList);
+            displayUstensils(filteredUstensilList);
 
             closeApplianceModal();
             appliancesInput.value = "";
@@ -271,12 +275,12 @@ function displayIngredients(ingredients) {
                 if (myIndex !== -1) {
                     filterTab.splice(myIndex, 1);
                 }
-                displayRecipes(recipes);
+                displayRecipes(filteredRecipesTab);
             })
             applianceTag.appendChild(closeIcon);
             tagContainer.appendChild(applianceTag);
 
-            let newRecipesAppliances = filterRecipes(spanAppliance.innerText.toLocaleLowerCase(), "appliances");
+            let newRecipesAppliances = filterRecipes(applianceObject);
             displayRecipes(newRecipesAppliances);
         });
         appliancesList.appendChild(spanAppliance);
@@ -290,12 +294,10 @@ function displayIngredients(ingredients) {
  function displayUstensils(ustensils) {
 
     ustensilsList.innerHTML = "";
-    closeIngredientModal();
-    closeApplianceModal();
-
-    ustensilsBtn.style.display = "none";
-    ustensilsListContainer.style.display = "block";
-    ustensilsListContainer.classList.add('main-unfold-ustensils');
+    ingredientsBtn.style.display = "block";
+    ingredientsListContainer.style.display = "none";
+    appliancesBtn.style.display = "block";
+    appliancesListContainer.style.display = "none";
 
     ustensils.forEach((ustensil) => {
         const spanUstensil = document.createElement('span');
@@ -305,6 +307,10 @@ function displayIngredients(ingredients) {
 
             let ustensilObject = {ustensil: spanUstensil.innerText.toLocaleLowerCase()};
             filterTab.push(ustensilObject);
+
+            displayIngredients(filteredIngredientList);
+            displayAppliances(filteredApplianceList);
+            displayUstensils(filteredUstensilList);
 
             closeUstensilModal();
             ustensilsInput.value = "";
@@ -320,12 +326,12 @@ function displayIngredients(ingredients) {
                 if (myIndex !== -1) {
                     filterTab.splice(myIndex, 1);
                 }
-                displayRecipes(recipes);
+                displayRecipes(filteredRecipesTab);
             })
             ustensilTag.appendChild(closeIcon);
             tagContainer.appendChild(ustensilTag);
 
-            let newRecipesUstensils = filterRecipes(spanUstensil.innerText.toLocaleLowerCase(), "ustensils");
+            let newRecipesUstensils = filterRecipes(ustensilObject);
             displayRecipes(newRecipesUstensils);
         });
         ustensilsList.appendChild(spanUstensil);
@@ -387,15 +393,15 @@ function filterIngredients(fullIngredientsTab, searchInput) {
  * @param {string} type type de la recherche
  * @returns {array} filteredRecipesTab - le nouveau tableau de recette filtré
  */
-function filterRecipes(searchInput, type) {
+function filterRecipes(search) {
 
-    if (type === "ingredients") {
+    if (search.ingredient) {
         for (let i = 0; i < recipes.length; i++) {
             let isIngredient = false;
             for (let j = 0; j < recipes[i].ingredients.length; j++) {
                 const element = recipes[i].ingredients[j].ingredient;
                 
-                if (element.toLocaleLowerCase().indexOf(searchInput) > -1) {
+                if (element.toLocaleLowerCase().indexOf(search.ingredient) > -1) {
                     isIngredient = true;
                 }
             }
@@ -409,10 +415,10 @@ function filterRecipes(searchInput, type) {
         }
     }
 
-    if (type === "appliances") {
+    if (search.appliance) {
         for (let i = 0; i < recipes.length; i++) {
             const element = recipes[i].appliance;
-            if (element.toLocaleLowerCase().indexOf(searchInput) === -1) {
+            if (element.toLocaleLowerCase().indexOf(search.appliance) === -1) {
                 let myIndex = filteredRecipesTab.indexOf(recipes[i]);
                     if (myIndex !== -1) {
                         filteredRecipesTab.splice(myIndex, 1);
@@ -422,13 +428,13 @@ function filterRecipes(searchInput, type) {
         }
     }
 
-    if (type === "ustensils") {
+    if (search.ustensil) {
         for (let i = 0; i < recipes.length; i++) {
             let isUstensil = false;
 
             for (let j = 0; j < recipes[i].ustensils.length; j++) {
                 const element = recipes[i].ustensils[j];
-                if (element.toLocaleLowerCase().indexOf(searchInput) > -1) {
+                if (element.toLocaleLowerCase().indexOf(search.ustensil) > -1) {
                     isUstensil = true;
                 }
             }
@@ -442,27 +448,28 @@ function filterRecipes(searchInput, type) {
         }
     }
 
-    if (type === "all") {
+    //TODO finir recherche all
+    if (search.all) {
         for (let i = 0; i < recipes.length; i++) {
 
             // Filtre des recette selon ingrédients
             for (let j = 0; j < recipes[i].ingredients.length; j++) {
                 const elementIngredient = recipes[i].ingredients[j].ingredient;
                 
-                if (elementIngredient.toLocaleLowerCase().indexOf(searchInput) > -1) {
+                if (elementIngredient.toLocaleLowerCase().indexOf(search.all) > -1) {
                     filteredRecipesTab.splice(recipes[i]);
                 }
             }
 
             // Filtre des recettes selon le nom
             const elementName = recipes[i].name;
-            if (elementName.toLocaleLowerCase().indexOf(searchInput) > -1) {
+            if (elementName.toLocaleLowerCase().indexOf(search.all) > -1) {
                 filteredRecipesTab.splice(recipes[i]);
             }
 
             // Filtre des recettes selonr la description
              const elementDescription = recipes[i].description;
-             if (elementDescription.toLocaleLowerCase().indexOf(searchInput) > -1) {
+             if (elementDescription.toLocaleLowerCase().indexOf(search.all) > -1) {
                 filteredRecipesTab.splice(recipes[i]);
             }
 
@@ -536,6 +543,7 @@ function closeIngredientModal() {
  * Ecouter les événements 
  */
 function initEventsListeners() {
+    //TODO retirer tag quand on efface la recherche + refiltrer les recettes
     mainSearchInput.addEventListener('keyup', (event) => {
         if (mainSearchInput.value.length > 2 || event.key === "Backspace") {
             filterTab.push({all: mainSearchInput.value});
@@ -544,7 +552,14 @@ function initEventsListeners() {
         }
     })
 
-    ingredientsChevronDown.addEventListener('click', displayIngredients.bind(this, fullIngredientList));
+    ingredientsChevronDown.addEventListener('click', () => {
+        ingredientsBtn.style.display = "none"; 
+        ingredientsListContainer.style.display = "block";
+        appliancesBtn.style.position = "inherit";
+        ustensilsBtn.style.position = "inherit";
+        appliancesBtn.classList.add('unfold-ingredients');
+        ustensilsBtn.classList.add('unfold-ingredients');
+    });
     ingredientsChevronUp.addEventListener('click', closeIngredientModal);
     ingredientsInput.addEventListener('keyup', (event) => {
         if (ingredientsInput.value.length > 2 || event.key === "Backspace") {
@@ -552,16 +567,16 @@ function initEventsListeners() {
             displayIngredients(newIngredients);
         }
     });
-    // ingredientsInput.addEventListener('change', (event) => {
-    //     if (ingredientsInput.value.length > 2 || event.key === "Backspace") {
-    //         filterTab.push({all: ingredientsInput.value});
-    //         console.log(filterTab);
-    //         let newIngredients = filterIngredients(fullIngredientList, ingredientsInput.value.toLowerCase());
-    //         displayIngredients(newIngredients);
-    //     }
-    // });
 
-    appliancesChevronDown.addEventListener('click', displayAppliances.bind(this, fullApplianceList));
+    appliancesChevronDown.addEventListener('click', () => {
+        appliancesBtn.style.display = "none";
+        appliancesListContainer.style.display = "block";
+        appliancesListContainer.classList.add('main-unfold-appliances');
+        ustensilsBtn.style.position = "inherit";
+        ustensilsBtn.classList.add('unfold-appliances');
+
+        displayAppliances(filteredApplianceList);
+    });
     appliancesChevronUp.addEventListener('click', closeApplianceModal);
     appliancesInput.addEventListener('keyup', (event) => {
         if (appliancesInput.value.length > 2 || event.key === "Backspace") {
@@ -570,7 +585,13 @@ function initEventsListeners() {
         }
     });
 
-    ustensilsChevronDown.addEventListener('click', displayUstensils.bind(this, fullUstensilList));
+    ustensilsChevronDown.addEventListener('click', () => {
+        ustensilsBtn.style.display = "none";
+        ustensilsListContainer.style.display = "block";
+        ustensilsListContainer.classList.add('main-unfold-ustensils');
+        
+        displayUstensils(filteredUstensilList);
+    });
     ustensilsChevronUp.addEventListener('click', closeUstensilModal);
     ustensilsInput.addEventListener('keyup', (event) => {
         if (ustensilsInput.value.length > 2 || event.key === "Backspace") {
@@ -583,6 +604,9 @@ function initEventsListeners() {
 function main() {
     displayRecipes(recipes);
     initEventsListeners();
+    displayIngredients(fullIngredientList);
+    displayAppliances(fullApplianceList);
+    displayUstensils(fullUstensilList);
 }
 
 main();
