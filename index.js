@@ -423,7 +423,7 @@ function filterRecipes() {
                 //Filtre des recette selon ingrédients
                 for (let j = 0; j < recipes[i].ingredients.length; j++) {
                     const element = recipes[i].ingredients[j].ingredient;
-                    if (element.toLocaleLowerCase().indexOf(filterTab[h].all) > 0) {
+                    if (element.toLocaleLowerCase().indexOf(filterTab[h].all) > - 1) {
                         filterByAll.push(recipes[i]);
                     }
                 }
@@ -431,14 +431,17 @@ function filterRecipes() {
 
                 // Filtre des recettes selon le nom
                 const elementName = recipes[i].name;
-                if (elementName.toLocaleLowerCase().indexOf(filterTab[h].all) > 0) {
+                console.log(elementName.toLocaleLowerCase().indexOf(filterTab[h].all));
+                if (elementName.toLocaleLowerCase().indexOf(filterTab[h].all) > - 1) {
+                    console.log(filterByAll);
                     filterByAll.push(recipes[i]);
+                    console.log(filterByAll);
 
                 }
 
                 // Filtre des recettes selon la description
                 const elementDescription = recipes[i].description;
-                if (elementDescription.toLocaleLowerCase().indexOf(filterTab[h].all) > 0) {
+                if (elementDescription.toLocaleLowerCase().indexOf(filterTab[h].all) > -1) {
                     filterByAll.push(recipes[i]);
                 }
 
