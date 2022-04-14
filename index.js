@@ -155,7 +155,6 @@ function getUstensils(recipes) {
  */
 function displayIngredients(ingredients) {
 
-    //TODO corriger affichage si 3 ouvertures de modales
     ingredientsList.innerHTML = "";
     appliancesBtn.style.display = "block";
     appliancesListContainer.style.display = "none";
@@ -170,12 +169,7 @@ function displayIngredients(ingredients) {
 
             let ingredientObject = { ingredient: spanIngredient.innerText.toLocaleLowerCase() }
             filterTab.push(ingredientObject);
-
             closeIngredientModal();
-
-            displayIngredients(filteredIngredientList);
-            displayAppliances(filteredApplianceList);
-            displayUstensils(filteredUstensilList);
 
             ingredientsInput.value = "";
             const ingredientTag = document.createElement('button');
@@ -183,19 +177,17 @@ function displayIngredients(ingredients) {
             ingredientTag.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
             const closeIcon = document.createElement('i');
             closeIcon.classList.add('fa-regular', 'fa-circle-xmark');
-            //TODO refiltrer liste des recettes quand on quitte le tag 
             closeIcon.addEventListener('click', () => {
                 ingredientTag.style.display = 'none';
-
                 let myIndex = filterTab.indexOf(ingredientObject);
                 if (myIndex !== -1) {
                     filterTab.splice(myIndex, 1);
                 }
+                filterRecipes();
                 displayRecipes(filteredRecipesTab);
             })
             ingredientTag.appendChild(closeIcon);
             tagContainer.appendChild(ingredientTag);
-
 
             // Faire un for sur filter tab pour filtrer sur tous les éléments du tableau filterTab
             let newRecipesIngredients = filterRecipes();
@@ -244,6 +236,8 @@ function displayAppliances(appliances) {
                 if (myIndex !== -1) {
                     filterTab.splice(myIndex, 1);
                 }
+
+                filterRecipes();
                 displayRecipes(filteredRecipesTab);
             })
             applianceTag.appendChild(closeIcon);
@@ -295,6 +289,8 @@ function displayUstensils(ustensils) {
                 if (myIndex !== -1) {
                     filterTab.splice(myIndex, 1);
                 }
+
+                filterRecipes();
                 displayRecipes(filteredRecipesTab);
             })
             ustensilTag.appendChild(closeIcon);
@@ -364,6 +360,7 @@ function filterUstensils(fullUstensilsTab, searchInput) {
  */
 function filterRecipes() {
 
+    filteredRecipesTab = [...recipes];
     let filterByAll = [];
     for (let h = 0; h < filterTab.length; h++) {
 
@@ -440,10 +437,10 @@ function filterRecipes() {
                 }
 
                 // Filtre des recettes selon la description
-                  const elementDescription = recipes[i].description;
-                  if (elementDescription.toLocaleLowerCase().indexOf(filterTab[h].all) > 0) {
+                const elementDescription = recipes[i].description;
+                if (elementDescription.toLocaleLowerCase().indexOf(filterTab[h].all) > 0) {
                     filterByAll.push(recipes[i]);
-                 }
+                }
 
                 // Déduplication des recettes
                 // TODO améliorer la déduplication
@@ -506,16 +503,27 @@ function closeUstensilModal() {
  * Ecouter les événements 
  */
 function initEventsListeners() {
-    //TODO retirer tag quand on efface la recherche + refiltrer les recettes
     mainSearchInput.addEventListener('keyup', (event) => {
+        for (let i = 0; i < filterTab.length; i++) {
+            let myIndex = filterTab.indexOf(filterTab[i]);
+            if (filterTab[i].all && myIndex !== -1) {
+                filterTab.splice(myIndex, 1);
+            }
+        }
         if (mainSearchInput.value.length > 2 || event.key === "Backspace") {
             filterTab.push({ all: mainSearchInput.value });
-            let mainSearchTab = filterRecipes();
-            displayRecipes(mainSearchTab);
         }
+        filterRecipes();
+        displayRecipes(filteredRecipesTab);
     })
 
     ingredientsChevronDown.addEventListener('click', () => {
+        filteredIngredientList = getIngredients(filteredRecipesTab);
+        filteredApplianceList = getAppliances(filteredRecipesTab);
+        filteredUstensilList = getUstensils(filteredRecipesTab);
+        displayIngredients(filteredIngredientList);
+        displayAppliances(filteredApplianceList);
+        displayUstensils(filteredUstensilList);
         ingredientsBtn.style.display = "none";
         ustensilsBtn.style.display = "block";
         appliancesBtn.style.display = "block";
@@ -526,7 +534,7 @@ function initEventsListeners() {
         ustensilsBtn.style.position = "inherit";
         appliancesBtn.classList.add('unfold-appliances');
         ustensilsBtn.classList.add('unfold-ustensils');
-        
+
     });
     ingredientsChevronUp.addEventListener('click', closeIngredientModal);
     ingredientsInput.addEventListener('keyup', (event) => {
@@ -537,6 +545,12 @@ function initEventsListeners() {
     });
 
     appliancesChevronDown.addEventListener('click', () => {
+        filteredIngredientList = getIngredients(filteredRecipesTab);
+        filteredApplianceList = getAppliances(filteredRecipesTab);
+        filteredUstensilList = getUstensils(filteredRecipesTab);
+        displayIngredients(filteredIngredientList);
+        displayAppliances(filteredApplianceList);
+        displayUstensils(filteredUstensilList);
         appliancesBtn.style.display = "none";
         ustensilsBtn.style.display = "block";
         ingredientsBtn.style.display = "block";
@@ -546,8 +560,6 @@ function initEventsListeners() {
         appliancesListContainer.classList.add('main-unfold-appliances');
         ustensilsBtn.style.position = "inherit";
         ustensilsBtn.classList.add('unfold-ustensils');
-
-        displayAppliances(filteredApplianceList);
     });
     appliancesChevronUp.addEventListener('click', closeApplianceModal);
     appliancesInput.addEventListener('keyup', (event) => {
@@ -558,6 +570,12 @@ function initEventsListeners() {
     });
 
     ustensilsChevronDown.addEventListener('click', () => {
+        filteredIngredientList = getIngredients(filteredRecipesTab);
+        filteredApplianceList = getAppliances(filteredRecipesTab);
+        filteredUstensilList = getUstensils(filteredRecipesTab);
+        displayIngredients(filteredIngredientList);
+        displayAppliances(filteredApplianceList);
+        displayUstensils(filteredUstensilList);
         ustensilsBtn.style.display = "none";
         ingredientsBtn.style.display = "block";
         appliancesBtn.style.display = "block";
@@ -567,8 +585,6 @@ function initEventsListeners() {
         ustensilsListContainer.classList.add('main-unfold-ustensils');
         appliancesBtn.style.position = "inherit";
         appliancesBtn.classList.remove('unfold-appliances');
-
-        displayUstensils(filteredUstensilList);
     });
     ustensilsChevronUp.addEventListener('click', closeUstensilModal);
     ustensilsInput.addEventListener('keyup', (event) => {
