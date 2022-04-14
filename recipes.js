@@ -1684,7 +1684,7 @@ const recipes = [
                 "unit": "cuillères à soupe"
             }
         ],
-        "time": 0,
+        "time": 10,
         "description":"Découper les fruits. Le passer au blender jusqu'à obtenir une texture liquide. Mettre au frais. Servir",
         "appliance": "Blender",
         "ustensils":["couteau", "verres"]
