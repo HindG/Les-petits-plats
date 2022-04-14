@@ -517,11 +517,16 @@ function initEventsListeners() {
 
     ingredientsChevronDown.addEventListener('click', () => {
         ingredientsBtn.style.display = "none";
+        ustensilsBtn.style.display = "block";
+        appliancesBtn.style.display = "block";
         ingredientsListContainer.style.display = "block";
+        appliancesListContainer.style.display = "none";
+        ustensilsListContainer.style.display = "none";
         appliancesBtn.style.position = "inherit";
         ustensilsBtn.style.position = "inherit";
-        appliancesBtn.classList.add('unfold-ingredients');
-        ustensilsBtn.classList.add('unfold-ingredients');
+        appliancesBtn.classList.add('unfold-appliances');
+        ustensilsBtn.classList.add('unfold-ustensils');
+        
     });
     ingredientsChevronUp.addEventListener('click', closeIngredientModal);
     ingredientsInput.addEventListener('keyup', (event) => {
@@ -533,10 +538,14 @@ function initEventsListeners() {
 
     appliancesChevronDown.addEventListener('click', () => {
         appliancesBtn.style.display = "none";
+        ustensilsBtn.style.display = "block";
+        ingredientsBtn.style.display = "block";
         appliancesListContainer.style.display = "block";
+        ustensilsListContainer.style.display = "none";
+        ingredientsListContainer.style.display = "none";
         appliancesListContainer.classList.add('main-unfold-appliances');
         ustensilsBtn.style.position = "inherit";
-        ustensilsBtn.classList.add('unfold-appliances');
+        ustensilsBtn.classList.add('unfold-ustensils');
 
         displayAppliances(filteredApplianceList);
     });
@@ -550,8 +559,14 @@ function initEventsListeners() {
 
     ustensilsChevronDown.addEventListener('click', () => {
         ustensilsBtn.style.display = "none";
+        ingredientsBtn.style.display = "block";
+        appliancesBtn.style.display = "block";
         ustensilsListContainer.style.display = "block";
+        appliancesListContainer.style.display = "none";
+        ingredientsListContainer.style.display = "none";
         ustensilsListContainer.classList.add('main-unfold-ustensils');
+        appliancesBtn.style.position = "inherit";
+        appliancesBtn.classList.remove('unfold-appliances');
 
         displayUstensils(filteredUstensilList);
     });
