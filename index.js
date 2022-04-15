@@ -354,8 +354,6 @@ function filterUstensils(fullUstensilsTab, searchInput) {
 
 /**
  * Filtre le tableau des recettes
- * @param {string} searchInput valeur de la recherche
- * @param {string} type type de la recherche
  * @returns {array} filteredRecipesTab - le nouveau tableau de recette filtré
  */
 function filterRecipes() {
@@ -446,7 +444,6 @@ function filterRecipes() {
                 }
 
                 // Déduplication des recettes
-                // TODO améliorer la déduplication
                 for (let j = 0; j < filterByAll.length; j++) {
                     if (filterByAll[j] === filterByAll[j + 1]) {
                         filterByAll.splice(j, 1);
