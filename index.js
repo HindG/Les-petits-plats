@@ -361,7 +361,8 @@ function filterRecipes() {
         if (filter.all) {
             let newfilteredRecipesTabName = newfilteredRecipesTab.filter( recipe => recipe.name.toLocaleLowerCase().includes(filter.all.toLocaleLowerCase()) );
             let newfilteredRecipesTabDescription = newfilteredRecipesTab.filter( recipe => recipe.description.toLocaleLowerCase().includes(filter.all.toLocaleLowerCase()) );
-            let concatNewfilteredRecipesTab = newfilteredRecipesTabName.concat(newfilteredRecipesTabDescription);
+            let newfilteredRecipesTabIngredients = newfilteredRecipesTab.filter(recipe => recipe.ingredients.some(ingredient => filter.all.toLocaleLowerCase() === ingredient.ingredient.toLocaleLowerCase() ));
+            let concatNewfilteredRecipesTab = newfilteredRecipesTabName.concat(newfilteredRecipesTabDescription).concat(newfilteredRecipesTabIngredients);
             newfilteredRecipesTab = [...new Set(concatNewfilteredRecipesTab)];
         }
 
