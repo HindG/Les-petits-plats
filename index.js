@@ -388,6 +388,7 @@ function closeIngredientModal() {
     ingredientsListContainer.style.display = "none";
     appliancesBtn.style.position = "initial";
     ustensilsBtn.style.position = "initial";
+    ingredientsBtn.style.position = "initial";
 }
 
 /**
@@ -396,8 +397,9 @@ function closeIngredientModal() {
 function closeApplianceModal() {
     appliancesBtn.style.display = "block";
     appliancesListContainer.style.display = "none";
-    ingredientsBtn.style.position = "initial";
+    appliancesBtn.style.position = "initial";
     ustensilsBtn.style.position = "initial";
+    ingredientsBtn.style.position = "initial";
 }
 
 
@@ -408,6 +410,7 @@ function closeUstensilModal() {
     ustensilsBtn.style.display = "block";
     ustensilsListContainer.style.display = "none";
     appliancesBtn.style.position = "initial";
+    ustensilsBtn.style.position = "initial";
     ingredientsBtn.style.position = "initial";
 }
 
