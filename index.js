@@ -418,15 +418,6 @@ function filterRecipes() {
         if (filterTab[h].all) {
 
             for (let i = 0; i < recipes.length; i++) {
-                //Filtre des recette selon ingrédients
-                for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                    const element = recipes[i].ingredients[j].ingredient;
-                    if (element.toLocaleLowerCase().indexOf(filterTab[h].all) > - 1) {
-                        filterByAll.push(recipes[i]);
-                    }
-                }
-
-
                 // Filtre des recettes selon le nom
                 const elementName = recipes[i].name;
                 console.log(elementName.toLocaleLowerCase().indexOf(filterTab[h].all));
