@@ -162,6 +162,11 @@ h3 {
     align-items: center;
 }
 
+.d-flex-container {
+    display: flex;
+    align-items: flex-start;
+}
+
 .padded-container {
     padding: 0 20px;
     margin-top: 15px;
@@ -175,6 +180,7 @@ h3 {
 
 .ingredients-container {
     margin-block-end: 1rem;
+    line-height: 18px;
 }
 
 .ingredient-name {
@@ -194,6 +200,7 @@ h3 {
     height: 164px;
     text-overflow: ellipsis;
     display: inline-block;
+    line-height: 18px;
 }
 
 .unfold-ingredients {
@@ -227,7 +234,7 @@ h3 {
 #empty-state {
     display: none;
     color: var(--red);
-    font-size: 37px;
+    font-size: 30px;
     padding: 20px 50px;
     text-align: center;
 }
@@ -245,6 +252,15 @@ input::placeholder {
 }
 
 @media screen and (max-width:1025px) and (min-width:770px) {
+    h3 {
+        font-size: 16px;
+    }
+
+    .timer-container-card {
+        font-size: 16px;
+        text-align: right;
+    }
+
     .list-container {
         width: 480px;
     }
@@ -264,6 +280,15 @@ input::placeholder {
 }
 
 @media screen and (max-width:769px) and (min-width:427px) {
+    h3 {
+        font-size: 16px;
+    }
+
+    .timer-container-card {
+        font-size: 16px;
+        text-align: right;
+    }
+
     .list-container {
         width: 300px;
     }
@@ -287,10 +312,24 @@ input::placeholder {
     .recipe-card {
         width: 45%;
     }
+
+    #empty-state {
+        font-size: 26px;
+        padding: 10px 45px;
+    }
     
 }
 
 @media screen and (max-width:426px) {
+    h3 {
+        font-size: 15px;
+    }
+
+    .timer-container-card {
+        font-size: 16px;
+        text-align: right;
+    }
+
     #filters-container {
         align-items: center;
         flex-direction: column;
@@ -316,5 +355,10 @@ input::placeholder {
     .main-unfold-ustensils {
         top: 175px;
         left: 0;
+    }
+
+    #empty-state {
+        font-size: 19px;
+        padding: 0 0 40px 0;
     }
 }

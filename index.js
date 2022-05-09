@@ -62,7 +62,7 @@ function displayRecipes(recipes) {
         divTime.appendChild(spanTime);
         header.appendChild(divTime);
         const divRecipe = document.createElement('div');
-        divRecipe.classList.add('d-flex', 'padded-container', 'lato');
+        divRecipe.classList.add('d-flex-container', 'padded-container', 'lato');
         article.appendChild(divRecipe);
         const ingredientsContainer = document.createElement('div');
         ingredientsContainer.classList.add('ingredients-container');
