@@ -38,7 +38,7 @@ function displayRecipes(recipes) {
 
     recipesContainer.innerHTML = "";
 
-    for (let i = 0; i < recipes.length; i++) {
+    recipes.forEach(recipe => {
         const article = document.createElement('article');
         article.classList.add('recipe-card');
         const imageDiv = document.createElement('div');
@@ -50,7 +50,7 @@ function displayRecipes(recipes) {
         const h3 = document.createElement('h3');
         h3.classList.add('lato');
         header.appendChild(h3);
-        h3.innerText = recipes[i].name;
+        h3.innerText = recipe.name;
         const divTime = document.createElement('div');
         divTime.classList.add('timer-container-card');
         const clock = document.createElement('i');
@@ -58,7 +58,7 @@ function displayRecipes(recipes) {
         divTime.appendChild(clock);
         const spanTime = document.createElement('span');
         spanTime.classList.add('timer-card', 'lato');
-        spanTime.innerText = `${recipes[i].time} min`;
+        spanTime.innerText = `${recipe.time} min`;
         divTime.appendChild(spanTime);
         header.appendChild(divTime);
         const divRecipe = document.createElement('div');
@@ -68,18 +68,18 @@ function displayRecipes(recipes) {
         ingredientsContainer.classList.add('ingredients-container');
         divRecipe.appendChild(ingredientsContainer);
 
-        for (j = 0; j < recipes[i].ingredients.length; j++) {
+        recipe.ingredients.forEach(ingredient => {
             const divIngredient = document.createElement('div');
             const spanIngredientTitle = document.createElement('span')
             spanIngredientTitle.classList.add('ingredient-name')
-            spanIngredientTitle.innerText = `${recipes[i].ingredients[j].ingredient} `;
+            spanIngredientTitle.innerText = `${ingredient.ingredient} `;
             const spanIngredientQuantity = document.createElement('span')
             spanIngredientQuantity.classList.add('ingredient-name', 'ingredient-quantity')
-            if ('unit' in recipes[i].ingredients[j] && 'quantity' in recipes[i].ingredients[j]) {
-                spanIngredientQuantity.innerText = `: ${recipes[i].ingredients[j].quantity} ${recipes[i].ingredients[j].unit}`;
+            if ('unit' in ingredient && 'quantity' in ingredient) {
+                spanIngredientQuantity.innerText = `: ${ingredient.quantity} ${ingredient.unit}`;
             }
-            else if ('quantity' in recipes[i].ingredients[j]) {
-                spanIngredientQuantity.innerText = `: ${recipes[i].ingredients[j].quantity}`;
+            else if ('quantity' in ingredient) {
+                spanIngredientQuantity.innerText = `: ${ingredient.quantity}`;
             }
             else {
                 spanIngredientQuantity.innerText = '';
@@ -87,14 +87,14 @@ function displayRecipes(recipes) {
             divIngredient.appendChild(spanIngredientTitle);
             divIngredient.appendChild(spanIngredientQuantity);
             ingredientsContainer.appendChild(divIngredient);
-        }
+        })
 
         const description = document.createElement('p');
         description.classList.add('recipe-description', 'roboto');
-        description.innerText = recipes[i].description;
+        description.innerText = recipe.description;
         divRecipe.appendChild(description);
         recipesContainer.appendChild(article);
-    }
+    })
 }
 
 /**
@@ -104,14 +104,14 @@ function displayRecipes(recipes) {
  */
 function getIngredients(recipes) {
     let tab = [];
-    for (let i = 0; i < recipes.length; i++) {
-        for (let j = 0; j < recipes[i].ingredients.length; j++) {
-            let ingredientLowerCase = recipes[i].ingredients[j].ingredient.toLowerCase();
+    recipes.forEach(recipe => {
+        recipe.ingredients.forEach(ingredient => {
+            let ingredientLowerCase = ingredient.ingredient.toLowerCase();
             if (tab.indexOf(ingredientLowerCase) === -1) {
                 tab.push(ingredientLowerCase);
             }
-        }
-    }
+        })
+    })
     return tab;
 }
 
@@ -122,12 +122,12 @@ function getIngredients(recipes) {
  */
 function getAppliances(recipes) {
     let tab = [];
-    for (let i = 0; i < recipes.length; i++) {
-        let appliancesLowerCase = recipes[i].appliance.toLowerCase();
+    recipes.forEach(recipe => {
+        let appliancesLowerCase = recipe.appliance.toLowerCase();
         if (tab.indexOf(appliancesLowerCase) === -1) {
             tab.push(appliancesLowerCase);
         }
-    }
+    })
     return tab;
 }
 
@@ -138,14 +138,14 @@ function getAppliances(recipes) {
  */
 function getUstensils(recipes) {
     let tab = [];
-    for (let i = 0; i < recipes.length; i++) {
-        for (let j = 0; j < recipes[i].ustensils.length; j++) {
-            let ustensilsLowerCase = recipes[i].ustensils[j].toLowerCase();
+    recipes.forEach(recipe => {
+        recipe.ustensils.forEach(ustensil => {
+            let ustensilsLowerCase = ustensil.toLowerCase();
             if (tab.indexOf(ustensilsLowerCase) === -1) {
                 tab.push(ustensilsLowerCase);
             }
-        }
-    }
+        })
+    })
     return tab;
 }
 
@@ -161,7 +161,7 @@ function displayIngredients(ingredients) {
     ustensilsBtn.style.display = "block";
     ustensilsListContainer.style.display = "none";
 
-    ingredients.forEach((ingredient) => {
+    ingredients.forEach(ingredient => {
         const spanIngredient = document.createElement('span');
         spanIngredient.classList.add('list-element', 'lato');
         spanIngredient.innerText = ingredient[0].toUpperCase() + ingredient.slice(1);
@@ -209,7 +209,7 @@ function displayAppliances(appliances) {
     ustensilsBtn.style.display = "block";
     ustensilsListContainer.style.display = "none";
 
-    appliances.forEach((appliance) => {
+    appliances.forEach(appliance => {
         const spanAppliance = document.createElement('span');
         spanAppliance.classList.add('list-element', 'lato');
         spanAppliance.innerText = appliance[0].toUpperCase() + appliance.slice(1);
@@ -262,7 +262,7 @@ function displayUstensils(ustensils) {
     appliancesBtn.style.display = "block";
     appliancesListContainer.style.display = "none";
 
-    ustensils.forEach((ustensil) => {
+    ustensils.forEach(ustensil => {
         const spanUstensil = document.createElement('span');
         spanUstensil.classList.add('list-element', 'lato');
         spanUstensil.innerText = ustensil[0].toUpperCase() + ustensil.slice(1);
@@ -311,12 +311,7 @@ function displayUstensils(ustensils) {
  * @returns {array} un nouveau tableau d'ingrédient filtré
  */
 function filterIngredients(fullIngredientsTab, searchInput) {
-    let newIngredientsTab = [];
-    for (const ingredient of fullIngredientsTab) {
-        if (ingredient.indexOf(searchInput) > -1) {
-            newIngredientsTab.push(ingredient)
-        }
-    }
+    let newIngredientsTab = fullIngredientsTab.filter(ingredient => ingredient.indexOf(searchInput) > -1)
     return newIngredientsTab;
 }
 
@@ -327,12 +322,7 @@ function filterIngredients(fullIngredientsTab, searchInput) {
  * @returns {array} un nouveau tableau d'appareils filtré
  */
 function filterAppliances(fullAppliancesTab, searchInput) {
-    let newAppliancesTab = [];
-    for (const appliance of fullAppliancesTab) {
-        if (appliance.indexOf(searchInput) > -1) {
-            newAppliancesTab.push(appliance)
-        }
-    }
+    let newAppliancesTab = fullAppliancesTab.filter(appliance => appliance.indexOf(searchInput) > -1)
     return newAppliancesTab;
 }
 
@@ -343,12 +333,7 @@ function filterAppliances(fullAppliancesTab, searchInput) {
  * @returns {array} un nouveau tableau d'ustensiles filtré
  */
 function filterUstensils(fullUstensilsTab, searchInput) {
-    let newUstensilsTab = [];
-    for (const ustensil of fullUstensilsTab) {
-        if (ustensil.indexOf(searchInput) > -1) {
-            newUstensilsTab.push(ustensil)
-        }
-    }
+    let newUstensilsTab = fullUstensilsTab.filter(ustensil => ustensil.indexOf(searchInput) > -1)
     return newUstensilsTab;
 }
 
@@ -358,113 +343,32 @@ function filterUstensils(fullUstensilsTab, searchInput) {
  */
 function filterRecipes() {
 
-    filteredRecipesTab = [...recipes];
-    let filterByAll = [];
-    for (let h = 0; h < filterTab.length; h++) {
-
-        if (filterTab[h].ingredient) {
-            for (let i = 0; i < recipes.length; i++) {
-                let isIngredient = false;
-                for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                    const element = recipes[i].ingredients[j].ingredient;
-
-                    if (element.toLocaleLowerCase().indexOf(filterTab[h].ingredient) > -1) {
-                        isIngredient = true;
-                    }
-                }
-
-                if (!isIngredient) {
-                    let myIndex = filteredRecipesTab.indexOf(recipes[i]);
-                    if (myIndex !== -1) {
-                        filteredRecipesTab.splice(myIndex, 1);
-                    }
-                }
-            }
+    let newfilteredRecipesTab = [...recipes];
+    
+    filterTab.forEach(filter => {
+        if (filter.ingredient) {
+            newfilteredRecipesTab = newfilteredRecipesTab.filter(recipe => recipe.ingredients.some(ingredient => filter.ingredient.toLocaleLowerCase() === ingredient.ingredient.toLocaleLowerCase() ));
         }
 
-        if (filterTab[h].appliance) {
-            for (let i = 0; i < recipes.length; i++) {
-                const element = recipes[i].appliance;
-                if (element.toLocaleLowerCase().indexOf(filterTab[h].appliance) === -1) {
-                    let myIndex = filteredRecipesTab.indexOf(recipes[i]);
-                    if (myIndex !== -1) {
-                        filteredRecipesTab.splice(myIndex, 1);
-                    }
-
-                }
-            }
+        if (filter.appliance) {
+            newfilteredRecipesTab = newfilteredRecipesTab.filter(recipe => recipe.appliance.toLocaleLowerCase() === filter.appliance.toLocaleLowerCase() );
         }
 
-        if (filterTab[h].ustensil) {
-            for (let i = 0; i < recipes.length; i++) {
-                let isUstensil = false;
-
-                for (let j = 0; j < recipes[i].ustensils.length; j++) {
-                    const element = recipes[i].ustensils[j];
-                    if (element.toLocaleLowerCase().indexOf(filterTab[h].ustensil) > -1) {
-                        isUstensil = true;
-                    }
-                }
-
-                if (!isUstensil) {
-                    let myIndex = filteredRecipesTab.indexOf(recipes[i]);
-                    if (myIndex !== -1) {
-                        filteredRecipesTab.splice(myIndex, 1);
-                    }
-                }
-            }
+        if (filter.ustensil) {
+            newfilteredRecipesTab = newfilteredRecipesTab.filter(recipe => recipe.ustensils.some(ustensil => filter.ustensil.toLocaleLowerCase() === ustensil.toLocaleLowerCase()));
         }
 
-        if (filterTab[h].all) {
-
-            for (let i = 0; i < recipes.length; i++) {
-                //Filtre des recette selon ingrédients
-                for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                    const element = recipes[i].ingredients[j].ingredient;
-                    if (element.toLocaleLowerCase().indexOf(filterTab[h].all) > - 1) {
-                        filterByAll.push(recipes[i]);
-                    }
-                }
-
-
-                // Filtre des recettes selon le nom
-                const elementName = recipes[i].name;
-                console.log(elementName.toLocaleLowerCase().indexOf(filterTab[h].all));
-                if (elementName.toLocaleLowerCase().indexOf(filterTab[h].all) > - 1) {
-                    console.log(filterByAll);
-                    filterByAll.push(recipes[i]);
-                    console.log(filterByAll);
-
-                }
-
-                // Filtre des recettes selon la description
-                const elementDescription = recipes[i].description;
-                if (elementDescription.toLocaleLowerCase().indexOf(filterTab[h].all) > -1) {
-                    filterByAll.push(recipes[i]);
-                }
-
-                // Déduplication des recettes
-                for (let j = 0; j < filterByAll.length; j++) {
-                    if (filterByAll[j] === filterByAll[j + 1]) {
-                        filterByAll.splice(j, 1);
-                    }
-                }
-            }
-            filteredRecipesTab = filterByAll;
-
+        if (filter.all) {
+            let newfilteredRecipesTabName = newfilteredRecipesTab.filter( recipe => recipe.name.toLocaleLowerCase().includes(filter.all.toLocaleLowerCase()) );
+            let newfilteredRecipesTabDescription = newfilteredRecipesTab.filter( recipe => recipe.description.toLocaleLowerCase().includes(filter.all.toLocaleLowerCase()) );
+            let concatNewfilteredRecipesTab = newfilteredRecipesTabName.concat(newfilteredRecipesTabDescription);
+            newfilteredRecipesTab = [...new Set(concatNewfilteredRecipesTab)];
         }
+        
+    })
+    filteredRecipesTab = newfilteredRecipesTab;
 
-    }
-
-    if (filteredRecipesTab.length === 0) {
-        emptyState.style.display = "block";
-    }
-
-    if (filteredRecipesTab.length > 0) {
-        emptyState.style.display = "none";
-    }
-
-    return filteredRecipesTab;
+    return newfilteredRecipesTab;
 }
 
 /**
@@ -504,12 +408,12 @@ function closeUstensilModal() {
  */
 function initEventsListeners() {
     mainSearchInput.addEventListener('keyup', (event) => {
-        for (let i = 0; i < filterTab.length; i++) {
-            let myIndex = filterTab.indexOf(filterTab[i]);
-            if (filterTab[i].all && myIndex !== -1) {
+        filterTab.forEach(filter => {
+            let myIndex = filterTab.indexOf(filter);
+            if (filter.all && myIndex !== -1) {
                 filterTab.splice(myIndex, 1);
             }
-        }
+        })
         if (mainSearchInput.value.length > 2 || event.key === "Backspace") {
             filterTab.push({ all: mainSearchInput.value });
         }
