@@ -364,6 +364,14 @@ function filterRecipes() {
             let concatNewfilteredRecipesTab = newfilteredRecipesTabName.concat(newfilteredRecipesTabDescription);
             newfilteredRecipesTab = [...new Set(concatNewfilteredRecipesTab)];
         }
+
+        if (newfilteredRecipesTab.length === 0) {
+            emptyState.style.display = "block";
+        }
+    
+        if (newfilteredRecipesTab.length > 0) {
+            emptyState.style.display = "none";
+        }
         
     })
     filteredRecipesTab = newfilteredRecipesTab;
