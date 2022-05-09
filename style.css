@@ -237,6 +237,13 @@ input::placeholder {
     opacity: 1;
 }
 
+@media screen and (min-width:1440px) {
+    .container-responsive {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
 @media screen and (max-width:1025px) and (min-width:770px) {
     .list-container {
         width: 480px;
@@ -250,15 +257,35 @@ input::placeholder {
         left: 490px;
     }
 
+    .unfold-ustensils {
+        left: 490px;
+    }
+
 }
 
 @media screen and (max-width:769px) and (min-width:427px) {
     .list-container {
-        width: 460px;
+        width: 300px;
+    }
+
+    .list-element {
+        width: 49%;
+    }
+
+    .unfold-appliances {
+        left: 318px;
+    }
+
+    .unfold-ustensils {
+        left: 318px;
     }
         
     .other-unfold-ingredients {
         left: 470px;
+    }
+
+    .recipe-card {
+        width: 45%;
     }
     
 }
@@ -269,7 +296,25 @@ input::placeholder {
         flex-direction: column;
     }
 
+    .btn-responsive {
+        margin: 10px 0;
+    }
+
     .recipe-card {
-        width: 47%;
+        width: 100%;
+    }
+
+    .list-container {
+        width: 300px;
+    }
+
+    .main-unfold-appliances {
+        left: 0;
+        top: 100px;
+    }
+
+    .main-unfold-ustensils {
+        top: 175px;
+        left: 0;
     }
 }

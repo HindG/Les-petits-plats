@@ -2,8 +2,9 @@
 <html lang="fr">
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <meta charset="utf-8">
@@ -14,50 +15,65 @@
 </head>
 
 <body>
-    <header>
-        <div class="container-fluid align-center">
-            <img src="logo.png" href="#" alt="logo" class="logo"/>
+    <div class="container-responsive">
+        <header>
+            <div class="container-fluid align-center">
+                <img src="logo.png" href="#" alt="logo" class="logo" />
+            </div>
+        </header>
+        <div class="for-group">
+            <input autocomplete="off" type="text" id="search" placeholder="Rechercher une recette"
+                class="container form-control-lg">
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-    </header>
-    <div class="for-group">
-        <input autocomplete="off" type="text" id="search" placeholder="Rechercher une recette" class="container form-control-lg">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
 
-    <div class="d-flex container-fluid tags-container" id="tags-container">
-    </div>
-
-    <div class="d-flex container-fluid" id="filters-container">
-        <button class="btn ingredients lato" id="ingredients">Ingrédients<i class="fa-solid fa-chevron-down" id="ingredients-chevron-down"></i></button>
-        <div class="list-container ingredients lato btn" id="ingredients-list-container">
-            <input class="form-control-lg lato" id="input-ingredients" type="text" autocomplete="off" placeholder="Rechercher un ingrédient">
-            <i class="fa-solid fa-chevron-up" id="ingredients-chevron-up"></i>
-            <div class="list" id="ingredients-list"></div>
+        <div class="d-flex container-fluid tags-container" id="tags-container">
         </div>
-        <button class="btn appliances lato" id="appliances">Appareils<i class="fa-solid fa-chevron-down" id="appliances-chevron-down"></i></button>
-        <div class="list-container appliances lato btn" id="appliances-list-container">
-            <input class="form-control-lg lato" id="input-appliances" type="text" autocomplete="off" placeholder="Rechercher un appareil">
-            <i class="fa-solid fa-chevron-up" id="appliances-chevron-up"></i>
-            <div class="list" id="appliances-list"></div>
-        </div>
-        <button class="btn ustensils lato" id="ustensils">Ustensiles<i class="fa-solid fa-chevron-down" id="ustensils-chevron-down"></i></button>
-        <div class="list-container ustensils lato btn" id="ustensils-list-container">
-            <input class="form-control-lg lato" id="input-ustensils" type="text" autocomplete="off" placeholder="Rechercher un ustensile">
-            <i class="fa-solid fa-chevron-up" id="ustensils-chevron-up"></i>
-            <div class="list" id="ustensils-list"></div>
-        </div>
-    </div>
 
-    <div class="container-fluid" id="container">
-    </div>
-    <div id="empty-state">Aucune recette ne correspond à votre critère… vous pouvez
-        chercher « tarte aux pommes », « poisson », etc.</div>
+        <div class="d-flex container-fluid" id="filters-container">
+            <button class="btn ingredients lato btn-responsive" id="ingredients">Ingrédients<i class="fa-solid fa-chevron-down"
+                    id="ingredients-chevron-down"></i></button>
+            <div class="list-container ingredients lato btn" id="ingredients-list-container">
+                <input class="form-control-lg lato" id="input-ingredients" type="text" autocomplete="off"
+                    placeholder="Rechercher un ingrédient">
+                <i class="fa-solid fa-chevron-up" id="ingredients-chevron-up"></i>
+                <div class="list" id="ingredients-list"></div>
+            </div>
+            <button class="btn appliances lato btn-responsive" id="appliances">Appareils<i class="fa-solid fa-chevron-down"
+                    id="appliances-chevron-down"></i></button>
+            <div class="list-container appliances lato btn" id="appliances-list-container">
+                <input class="form-control-lg lato" id="input-appliances" type="text" autocomplete="off"
+                    placeholder="Rechercher un appareil">
+                <i class="fa-solid fa-chevron-up" id="appliances-chevron-up"></i>
+                <div class="list" id="appliances-list"></div>
+            </div>
+            <button class="btn ustensils lato btn-responsive" id="ustensils">Ustensiles<i class="fa-solid fa-chevron-down"
+                    id="ustensils-chevron-down"></i></button>
+            <div class="list-container ustensils lato btn" id="ustensils-list-container">
+                <input class="form-control-lg lato" id="input-ustensils" type="text" autocomplete="off"
+                    placeholder="Rechercher un ustensile">
+                <i class="fa-solid fa-chevron-up" id="ustensils-chevron-up"></i>
+                <div class="list" id="ustensils-list"></div>
+            </div>
+        </div>
 
-    <script src="./recipes.js"></script>
-    <script src="./index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <div class="container-fluid" id="container">
+        </div>
+        <div id="empty-state">Aucune recette ne correspond à votre critère… vous pouvez
+            chercher « tarte aux pommes », « poisson », etc.</div>
+
+        <script src="./recipes.js"></script>
+        <script src="./index.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    </div>
 </body>
 
 </html>
